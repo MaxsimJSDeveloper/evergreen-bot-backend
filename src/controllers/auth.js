@@ -4,6 +4,7 @@ import {
   refreshUserSession,
   registerUser,
   createSession,
+  updateUser,
 } from '../services/auth.js';
 
 // Реєстрація користувача
@@ -62,5 +63,14 @@ const setupSession = (res, session) => {
   res.cookie('sessionId', session._id, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_DAY),
+  });
+};
+
+// Оновлення даних користувача
+export const updateUserController = async (req, res) => {
+  const updatedUser = await updateUser(req.user.id, req.body); // Передаємо id користувача з токена
+  res.status(200).json({
+    message: 'User data successfully updated!',
+    data: updatedUser,
   });
 };

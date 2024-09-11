@@ -1,0 +1,73 @@
+tags:
+  - User
+summary: Update user
+operationId: updateUser
+description: 'Update user'
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          city:
+            type: string
+            description: The city of the user.
+          email:
+            type: string
+            description: The email of the user
+          name:
+            type: string
+            description: The name of the user.
+          phone:
+            type: string
+            description: The phone number of the user.
+responses:
+  '200':
+    description: Successfully updated user data.
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/user.yaml'
+  '400':
+    description: Bad Request - Invalid input data.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Invalid input data.
+  '401':
+    description: Unauthorized - Missing or invalid authentication token.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Please provide Authorization header.
+  '404':
+    description: Not Found - User not found.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: User not found.
+  '500':
+    description: Internal Server Error - Something went wrong on the server.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Something went wrong.

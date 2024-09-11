@@ -24,6 +24,9 @@ paths:
   /auth/refresh:
     post:
       $ref: '../swagger/paths/auth/refresh.yaml'
+  /auth/update-user-data:
+    patch:
+      $ref: '../swagger/paths/auth/updateUser.yaml'
 components:
   securitySchemes:
     bearerAuth:

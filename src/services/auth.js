@@ -61,3 +61,14 @@ const generateSessionTokens = () => {
     refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
   };
 };
+
+// Оновлення даних користувача
+export const updateUser = async (userId, payload) => {
+  const user = await UsersCollection.findById(userId);
+  if (!user) throw createHttpError(404, 'User not found');
+
+  Object.assign(user, payload); // Оновлюємо дані користувача
+  await user.save();
+
+  return user;
+};
