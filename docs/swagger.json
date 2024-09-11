@@ -46,16 +46,19 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "User's name",
-                    "example": "John Doe"
-                  },
                   "phone": {
                     "type": "string",
-                    "description": "User`s phone number"
+                    "format": "phone"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "John Doe"
                   }
-                }
+                },
+                "required": [
+                  "phone",
+                  "name"
+                ]
               }
             }
           }
@@ -66,7 +69,40 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/user"
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully registered a user!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string"
+                            },
+                            "phone": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "accessToken": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1..."
+                        }
+                      },
+                      "required": [
+                        "user",
+                        "accessToken"
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -75,7 +111,10 @@
             "description": "Bad request"
           },
           "409": {
-            "description": "Email in use"
+            "description": "Conflict - Phone number is already in use"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -103,7 +142,8 @@
                 "properties": {
                   "phone": {
                     "type": "string",
-                    "format": "email"
+                    "format": "phone",
+                    "example": "+380123456789"
                   }
                 },
                 "required": [
@@ -121,13 +161,23 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "accessToken": {
-                      "type": "string"
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully logged in a user!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1..."
+                        }
+                      },
+                      "required": [
+                        "accessToken"
+                      ]
                     }
-                  },
-                  "required": [
-                    "accessToken"
-                  ]
+                  }
                 }
               }
             }
@@ -140,6 +190,9 @@
           },
           "404": {
             "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -166,10 +219,12 @@
                 "type": "object",
                 "properties": {
                   "sessionId": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "60d2c6bb35b5b00000..."
                   },
                   "refreshToken": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1..."
                   }
                 },
                 "required": [
@@ -188,13 +243,23 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "accessToken": {
-                      "type": "string"
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully refreshed the session!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1..."
+                        }
+                      },
+                      "required": [
+                        "accessToken"
+                      ]
                     }
-                  },
-                  "required": [
-                    "accessToken"
-                  ]
+                  }
                 }
               }
             }
@@ -204,6 +269,9 @@
           },
           "401": {
             "description": "Unauthorized - Invalid session or token"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -217,6 +285,12 @@
       }
     },
     "schemas": {
+      "User": {
+        "$ref": "#/components/schemas/user"
+      },
+      "Order": {
+        "$ref": "#/components/schemas/orders"
+      },
       "user": {
         "type": "object",
         "required": [
@@ -255,6 +329,50 @@
             "type": "string",
             "format": "date-time",
             "description": "Timestamp when the user was last updated",
+            "example": "2023-08-02T10:20:30Z"
+          }
+        }
+      },
+      "orders": {
+        "type": "object",
+        "required": [
+          "_id",
+          "data",
+          "price",
+          "contactType",
+          "userId"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Order's id",
+            "type": "string",
+            "example": "60d21b4667d0d8992e610c85"
+          },
+          "date": {
+            "description": "Order's time",
+            "type": "string",
+            "example": "12 May 2024"
+          },
+          "price": {
+            "description": "Orders's price",
+            "type": "string",
+            "example": "1000 $"
+          },
+          "userId": {
+            "description": "ID of the user who owns this orders",
+            "type": "string",
+            "example": "60d21b4667d0d8992e610c88"
+          },
+          "createdAt": {
+            "description": "Timestamp when the contact was created",
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-08-02T10:20:30Z"
+          },
+          "updatedAt": {
+            "description": "Timestamp when the contact was last updated",
+            "type": "string",
+            "format": "date-time",
             "example": "2023-08-02T10:20:30Z"
           }
         }

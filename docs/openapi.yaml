@@ -29,3 +29,8 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
+  schemas:
+    User:
+      $ref: '../swagger/components/schemas/user.yaml'
+    Order:
+      $ref: '../swagger/components/schemas/orders.yaml'
