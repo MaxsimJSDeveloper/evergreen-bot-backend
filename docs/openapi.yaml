@@ -30,7 +30,7 @@ components:
       type: http
       scheme: bearer
   schemas:
-    User:
+    user:
       $ref: '../swagger/components/schemas/user.yaml'
-    Order:
+    orders:
       $ref: '../swagger/components/schemas/orders.yaml'

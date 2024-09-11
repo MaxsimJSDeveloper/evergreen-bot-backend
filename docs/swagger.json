@@ -69,40 +69,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully registered a user!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "user": {
-                          "type": "object",
-                          "properties": {
-                            "_id": {
-                              "type": "string"
-                            },
-                            "phone": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          }
-                        },
-                        "accessToken": {
-                          "type": "string",
-                          "example": "eyJhbGciOiJIUzI1..."
-                        }
-                      },
-                      "required": [
-                        "user",
-                        "accessToken"
-                      ]
-                    }
-                  }
+                  "$ref": "#/components/schemas/user"
                 }
               }
             }
@@ -285,12 +252,6 @@
       }
     },
     "schemas": {
-      "User": {
-        "$ref": "#/components/schemas/user"
-      },
-      "Order": {
-        "$ref": "#/components/schemas/orders"
-      },
       "user": {
         "type": "object",
         "required": [
@@ -317,7 +278,8 @@
           },
           "city": {
             "type": "string",
-            "description": "User`s city"
+            "description": "User`s city",
+            "example": "Kiev"
           },
           "createdAt": {
             "type": "string",

@@ -20,6 +20,7 @@ properties:
   city:
     type: string
     description: 'User`s city'
+    example: 'Kiev'
   createdAt:
     type: string
     format: date-time
