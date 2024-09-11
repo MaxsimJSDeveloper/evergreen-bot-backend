@@ -27,6 +27,11 @@ paths:
   /auth/update-user-data:
     patch:
       $ref: '../swagger/paths/auth/updateUser.yaml'
+  /orders:
+    get:
+      $ref: '../swagger/paths/orders/get.yaml'
+    post:
+      $ref: '../swagger/paths/orders/post.yaml'
 components:
   securitySchemes:
     bearerAuth:

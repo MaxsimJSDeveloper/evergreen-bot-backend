@@ -3,13 +3,17 @@ required:
   - _id
   - data
   - price
-  - contactType
+  - service
   - userId
 properties:
   _id:
     description: "Order's id"
     type: string
     example: 60d21b4667d0d8992e610c85
+  service:
+    description: 'Order`s name'
+    type: string
+    example: 'Business support'
   date:
     description: "Order's time"
     type: string

@@ -1,0 +1,40 @@
+tags:
+  - 'Orders'
+summary: Get orders user
+operationId: getOrders
+description: 'Get all orders'
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: 'Success !'
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/orders.yaml'
+  '401':
+    description: 'Unauthorized'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: 'Unauthorized'
+  '500':
+    description: 'Internal server error'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: 'Something went wrong'

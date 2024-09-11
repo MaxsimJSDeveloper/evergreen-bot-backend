@@ -1,0 +1,84 @@
+tags:
+  - 'Orders'
+summary: Create order
+operationId: createOrder
+description: 'Create a new order for the user.'
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          date:
+            type: string
+            format: date-time
+            example: '2024-09-11T14:15:05.927Z'
+          price:
+            type: string
+            example: '150'
+          service:
+            type: string
+            example: 'Cleaning'
+        required:
+          - date
+          - price
+          - service
+          - userId
+responses:
+  '201':
+    description: 'Order created successfully!'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'Order created successfully!'
+            data:
+              $ref: '../../components/schemas/orders.yaml'
+  '400':
+    description: 'Bad request. Validation error.'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: 'Validation error'
+  '401':
+    description: 'Unauthorized'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: 'Unauthorized'
+  '500':
+    description: 'Internal server error'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: 'Something went wrong'
