@@ -1,0 +1,59 @@
+tags:
+  - Auth
+summary: Register a new user
+operationId: registerUser
+description: 'Create new user'
+security:
+  - bearerAuth: []
+requestBody:
+  description: User registration data
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          phone:
+            type: string
+            format: phone
+          name:
+            type: string
+            example: 'John Doe'
+        required:
+          - phone
+          - name
+responses:
+  '201':
+    description: Successfully registered a user
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: 'Successfully registered a user!'
+            data:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                    phone:
+                      type: string
+                    name:
+                      type: string
+                accessToken:
+                  type: string
+                  example: 'eyJhbGciOiJIUzI1...'
+              required:
+                - user
+                - accessToken
+  '409':
+    description: Conflict - Phone number is already in use
+  '400':
+    description: Bad request
+  '500':
+    description: Internal server error

@@ -1,0 +1,32 @@
+type: object
+required:
+  - name
+  - phone
+properties:
+  name:
+    type: string
+    description: "User's name"
+    example: 'John Doe'
+  email:
+    type: string
+    description: "User's email address"
+    format: email
+    uniqueItems: true
+    example: 'john.doe@example.com'
+  phone:
+    type: string
+    description: "User's phone number"
+    example: '+380687114523'
+  city:
+    type: string
+    description: 'User`s city'
+  createdAt:
+    type: string
+    format: date-time
+    description: 'Timestamp when the user was created'
+    example: '2023-08-02T10:20:30Z'
+  updatedAt:
+    type: string
+    format: date-time
+    description: 'Timestamp when the user was last updated'
+    example: '2023-08-02T10:20:30Z'
